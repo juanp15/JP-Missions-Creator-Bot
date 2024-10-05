@@ -1,5 +1,3 @@
-import discord
-
 prefix = "!"  # The prefix used to call the bot commands.
 
 # Intents configuration

@@ -1,6 +1,11 @@
+devConf = True # Use False
+
 import os
 import discord
-import config.conf as conf
+if devConf:
+    import config.devConf as conf
+else:
+    import config.conf as conf
 from dotenv import load_dotenv
 from discord.ext import commands
 
@@ -21,6 +26,8 @@ bot = commands.Bot(command_prefix=conf.prefix, intents=intents)
 
 @bot.event
 async def on_ready():
+    await bot.load_extension('commands.createMission')
+    await bot.tree.sync()
     print(f'Bot {bot.user.name} has started successfully.')
 
 bot.run(os.getenv("BOT_TOKEN"))

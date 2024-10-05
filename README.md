@@ -16,7 +16,6 @@ This bot is designed to create missions embeds for the game DCS (Digital Combat 
 3. Install the requirements
 4. Create a .env file and add the following variables:
 ```env
-DISCORD_TOKEN=your_discord_token
-DISCORD_GUILD=your_discord_guild
+DISCORD_TOKEN="your_discord_token"
 ``` 
 5. Run the bot
