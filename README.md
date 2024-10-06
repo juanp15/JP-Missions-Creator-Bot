@@ -16,6 +16,7 @@ This bot is designed to create missions embeds for the game DCS (Digital Combat 
 3. Install the requirements
 4. Create a .env file and add the following variables:
 ```env
+DATABASE_URL="mysql+pymysql://your_username:your_password@ip:port/your_database" # Replace the placeholders with your database credentials # Example: mysql+pymysql://root:password@localhost:3306/jp_missionsdb
 DISCORD_TOKEN="your_discord_token"
 ``` 
 5. Run the bot
