@@ -1,0 +1,27 @@
+# bot.py
+msgid "BotReady"
+msgstr "se ha iniciado satisfactoriamente."
+
+msgid "ErrorLoadingExtensions"
+msgstr "Error cargando extensiones:"
+
+# General
+msgid "NotAllowedServer"
+msgstr "Comando no permitido en este servidor."
+
+# createMission.py
+msgid "DescCreateMissionCommand"
+msgstr "Crea una nueva misión."
+
+msgid "NotAllowedCreateMissions"
+msgstr "No tienes permiso para crear misiones."
+
+msgid "ErrorCreatingMission"
+msgstr "Ocurrió un error creando una misión:"
+
+# schedules_service.py
+msgid "ErrorPingingDatabase"
+msgstr "Error al hacer ping a la base de datos:"
+
+msgid "ScheduledTasksStarted"
+msgstr "Tareas programadas iniciadas."

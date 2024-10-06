@@ -1,4 +1,141 @@
-prefix = "!"  # The prefix used to call the bot commands.
+prefix = "!" # The prefix used to call the bot commands.
+
+lang = "en" # "en" or "es"
+
+allowedGuildId = 1111111111111111111 # Your server ID # Example: 1111111111111111111
+missionsTextVoiceChannel = "" # ID Missions channel and briefing channel # Example: "<#1111111111111111111> | <#1111111111111111111>"
+editorRoleId = 1111111111111111111 # Role id required for commands bot # Example: 1111111111111111111
+usersRoleId = "" # Mention a user role # Example: "<@&111111111111111111>""
+
+# Aircraft or helicopters for each class
+aircraftByClass = {
+    "CAP": [
+        "F-14 Tomcat", 
+        "F/A-18C Hornet", 
+        "F-16C Viper", 
+        "Dassault Mirage 2000C", 
+        "JF-17 Thunder", 
+        "F-86F Sabre", 
+        "F-5E Tiger II", 
+        "Mitsubishi F-1", 
+        "MiG-19P Farmer"
+    ],
+    "TASMO": [
+        "F/A-18C Hornet", 
+        "F-16C Viper", 
+        "F-14 Tomcat", 
+        "JF-17 Thunder", 
+        "Dassault Mirage 2000C"
+    ],
+    "STRIKE": [
+        "F/A-18C Hornet", 
+        "F-16C Viper", 
+        "Su-25T Frogfoot", 
+        "MiG-15Bis Fagot", 
+        "JF-17 Thunder", 
+        "AV-8B Harrier II", 
+        "F-15E Strike Eagle", 
+        "F-5E Tiger II", 
+        "F-4 Phantom II", 
+        "A-10C Thunderbolt II", 
+        "OH-58D Kiowa Warrior", 
+        "Mi-24P Hind", 
+        "Mi-8MTV2 Hip", 
+        "Ka-50 Black Shark", 
+        "AH-64D Apache"
+    ],
+    "CAS": [
+        "F/A-18C Hornet", 
+        "F-16C Viper", 
+        "Su-25T Frogfoot", 
+        "MiG-15Bis Fagot", 
+        "AV-8B Harrier II", 
+        "F-15E Strike Eagle", 
+        "F-5E Tiger II", 
+        "F-4 Phantom II", 
+        "A-10C Thunderbolt II", 
+        "OH-58D Kiowa Warrior", 
+        "Mi-24P Hind", 
+        "Mi-8MTV2 Hip", 
+        "Ka-50 Black Shark", 
+        "AH-64D Apache"
+    ],
+    "SEAD": [
+        "F/A-18C Hornet", 
+        "F-16C Viper", 
+        "AV-8B Harrier II", 
+        "JF-17 Thunder", 
+        "F-4 Phantom II"
+    ],
+    "RIO": [
+        "F-14 Tomcat", 
+        "F-15E Strike Eagle", 
+        "F-4 Phantom II", 
+        "UH-1H Huey", 
+        "SA342 Gazelle", 
+        "OH-58D Kiowa Warrior", 
+        "Mi-24P Hind", 
+        "Mi-8MTV2 Hip", 
+        "CH-47F Chinook", 
+        "AH-64D Apache"
+    ],
+    "PILOT": [
+        "SA342 Gazelle", 
+        "UH-1H Huey", 
+        "Mi-24P Hind", 
+        "Mi-8MTV2 Hip", 
+        "CH-47F Chinook"
+    ],
+    "CPG": [
+        "Mi-8MTV2 Hip", 
+        "AH-64D Apache", 
+        "CH-47F Chinook", 
+        "UH-1H Huey"
+    ]
+}
+
+# Emojis used in the bot. Example: "<:emoji_name:emoji_id>"
+emojis = {
+    "CAP": "<:emoji_name:emoji_id>",
+    "TASMO": "",
+    "STRIKE": "",
+    "CAS": "",
+    "SEAD": "",
+    "RIO": "",
+    "PILOT": "",
+    "CPG": "",
+    "Inscriptions": "",
+    "Date": "",
+    "StartFinish": "",
+    "TimeToStart": "",
+    "AJS 37 Viggen": "",
+    "Su-25T Frogfoot": "",
+    "Su-27 Flanker": "",
+    "Su-33 Flanker-D": "",
+    "Su-57 Felon": "",
+    "MiG-19P Farmer": "",
+    "MiG-15Bis Fagot": "",
+    "Dassault Mirage 2000C": "",
+    "JF-17 Thunder": "",
+    "AV-8B Harrier II": "",
+    "F-86F Sabre": "",
+    "F/A-18C Hornet": "",
+    "F-16C Viper": "",
+    "F-15E Strike Eagle": "",
+    "F-14 Tomcat": "",
+    "F-5E Tiger II": "",
+    "F-4 Phantom II": "",
+    "Mitsubishi F-1": "",
+    "A-10C Thunderbolt II": "",
+    "UH-1H Huey": "",
+    "SA342 Gazelle": "",
+    "OH-58D Kiowa Warrior": "",
+    "Mi-24P Hind": "",
+    "Mi-8MTV2 Hip": "",
+    "Ka-50 Black Shark": "",
+    "CH-47F Chinook": "",
+    "AH-64D Apache": ""
+}
 
 # Intents configuration
 confIntents = {
@@ -65,7 +202,3 @@ confIntents = {
         "dm_polls": 33554432,  # discord.Intents.dm_polls
     }
 }
-
-
-
-
