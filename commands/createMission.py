@@ -30,6 +30,8 @@ async def setup(bot: commands.Bot):
             if len(imagesDescriptionsList) > 1:
                 imageURLs = imagesDescriptionsList[::2]
                 descriptions = imagesDescriptionsList[1::2]
+                print(imageURLs)
+                print(descriptions)
 
             if not await checkDates_Times(interaction, mission_date, datetime_start, datetime_end):
                 return
@@ -60,7 +62,7 @@ async def setup(bot: commands.Bot):
                     imagesEmbedsIDs.append(imageMessage.id)
 
             # Create the mission embed
-            
+
             
         except Exception as e:
             # Delete the images embeds if they were created and any error occurred
@@ -73,7 +75,7 @@ async def setup(bot: commands.Bot):
 
 
 # Check if the user has the necessary role to create a mission, if the command was executed in the allowed server and if the number of images and descriptions is correct
-async def checkGuild_Role_Images(interaction, imagesDescriptions):
+async def checkGuild_Role_Images(interaction, imagesDescriptionsList):
     # Check if the command was executed in the allowed server
     if interaction.guild.id != conf.allowedGuildId:
         await interaction.response.send_message(loc.get("NotAllowedServer"), ephemeral=True, delete_after=10)
@@ -85,12 +87,12 @@ async def checkGuild_Role_Images(interaction, imagesDescriptions):
         return
     
     # Check if exceeds the maximum number of images (10 images and 10 descriptions) or is less than 1
-    if (len(imagesDescriptions) > 20):
+    if (len(imagesDescriptionsList) > 20):
         await interaction.response.send_message(loc.get("ErrorMaxImages"), ephemeral=True, delete_after=10)
         return
     
     # Check if the number of images and descriptions is even
-    if  len(imagesDescriptions) != 0 or len(imagesDescriptions) % 2 != 0:
+    if  len(imagesDescriptionsList) % 2 != 0:
         await interaction.response.send_message(loc.get("ErrorImagesDescriptions"), ephemeral=True, delete_after=10)
         return
     
