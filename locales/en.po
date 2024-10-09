@@ -19,6 +19,33 @@ msgstr "You are not allowed to create missions."
 msgid "ErrorCreatingMission"
 msgstr "An error occurred creating a mission:"
 
+msgid "ErrorMaxImages"
+msgstr "Only 0 to 10 images with their respective descriptions are allowed."
+
+msgid "ErrorImagesDescriptions"
+msgstr "The images descriptions cannot be empty."
+
+msgid "InvalidColor"
+msgstr "The color is not valid."
+
+msgid "ErrorDateTime"
+msgstr "The date and time format is incorrect. \nPlease use the format 'yyyy-mm-dd hh:mm' or 'yyyy-mm-dd' for dates."
+
+msgid "InvalidMissionDate"
+msgstr "The mission date cannot be earlier than the current date."
+
+msgid "InvalidMissionStartDate"
+msgstr "The mission start date cannot be earlier than the current date."
+
+msgid "InvalidMissionEndDate"
+msgstr "The mission end date cannot be earlier than the current date."
+
+msgid "InvalidMissionStartEnd"
+msgstr "The mission start date cannot be later than the mission end date."
+
+msgid "InvalidImageURL"
+msgstr "The image URL is not valid."
+
 # schedules_service.py
 msgid "ErrorPingingDatabase"
 msgstr "Error pinging database:"

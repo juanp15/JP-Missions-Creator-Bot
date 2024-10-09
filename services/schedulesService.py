@@ -1,7 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from config.db import Session
 from sqlalchemy.exc import OperationalError
-from services.translations_service import localization as loc
+from services.translationsService import localization as loc
 
 class ScheduledTasks:
     def __init__(self):

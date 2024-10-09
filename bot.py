@@ -3,10 +3,10 @@ import discord
 import config.devConf as conf # Change to config.conf
 from dotenv import load_dotenv
 from discord.ext import commands
-from services.schedules_service import ScheduledTasks
+from services.schedulesService import ScheduledTasks
 from config.db import engine
 from models.models import Base
-from services.translations_service import localization as loc
+from services.translationsService import localization as loc
 
 # Load environment variables
 load_dotenv()
