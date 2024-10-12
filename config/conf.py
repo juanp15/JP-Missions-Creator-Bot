@@ -7,6 +7,9 @@ missionsTextVoiceChannel = "" # ID Missions channel and briefing channel # Examp
 editorRoleId = 1111111111111111111 # Role id required for commands bot # Example: 1111111111111111111
 usersRoleId = "" # Mention a user role # Example: "<@&111111111111111111>""
 
+# Embed
+thumbnail = "" # Thumbnail image URL
+
 # Aircraft or helicopters for each class
 aircraftByClass = {
     "CAP": [

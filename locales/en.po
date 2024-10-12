@@ -43,6 +43,21 @@ msgstr "The mission start date cannot be later than the mission end date."
 msgid "InvalidImageURL"
 msgstr "The image URL is not valid."
 
+msgid "MissionStarted"
+msgstr "Started"
+
+msgid "WithoutParticipants"
+msgstr "Without participants"
+
+msgid "SelectAircraft"
+msgstr "Select your aircraft..."
+
+msgid "SelectRoleFirst"
+msgstr "Select your role first"
+
+msgid "MissionCreated"
+msgstr "Mission created successfully."
+
 # schedules_service.py
 msgid "ErrorPingingDatabase"
 msgstr "Error pinging database:"

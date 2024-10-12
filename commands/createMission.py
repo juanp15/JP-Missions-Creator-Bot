@@ -1,6 +1,7 @@
 import discord
 import config.devConf as conf # Change to config.conf
 from discord.ext import commands
+from discord.ui import Select, Button, View
 from services.translationsService import localization as loc
 from datetime import datetime
 
@@ -12,6 +13,7 @@ async def setup(bot: commands.Bot):
     async def createMission(interaction: discord.Interaction, title: str, description: str, embed_color: str, datetime_start: str, datetime_end: str, images_descriptions: str = ""):
         # Message ID of the images embeds
         imagesEmbedsIDs = []
+        emojis = conf.emojis
 
         try:
             imagesDescriptionsList = []
@@ -62,6 +64,59 @@ async def setup(bot: commands.Bot):
                     imagesEmbedsIDs.append(imageMessage.id)
 
             # Create the mission embed
+            embed = discord.Embed(
+                title=title,
+                description=description,
+                color=color
+            )
+
+            embed.set_thumbnail(url=conf.thumbnail)
+            embed.add_field(name="\n", value="", inline=False)
+            embed.add_field(name=emojis["Inscriptions"] + " 0", value="", inline=False)
+            embed.add_field(name=emojis["Date"] + " " + f"<t:{timestampStart}:D>", value="", inline=True)
+            embed.add_field(name=emojis["StartFinish"] + " " + f"<t:{timestampStart}:t>" + " - " + f"<t:{timestampEnd}:t>", value="", inline=True)
+
+            if timeRemaining.total_seconds() > 0:
+                embed.add_field(name=emojis["TimeToStart"] + " " + f"<t:{timestampStart}:R>", value="", inline=True)
+            else:
+                embed.add_field(name=emojis["TimeToStart"] + " " + loc.get("MissionStarted"), value="", inline=True)
+
+            embed.add_field(name="\n", value="", inline=False)
+            
+            # Add the roles to the embed
+            for role in ["CAP", "TASMO", "STRIKE", "CAS", "SEAD", "RIO", "PILOT", "CPG"]:
+                embed.add_field(name=emojis[role] + f" {role} 0", value=loc.get("WithoutParticipants"), inline=True)
+
+            embed.add_field(name="\n", value="", inline=False)
+            embed.add_field(name=conf.missionsTextVoiceChannel, value=conf.usersRoleId, inline=False)
+            embed.add_field(name="\n", value="", inline=False)
+            
+            embed.set_footer(text="JP Missions Creator")
+
+            await interaction.channel.send(embed=embed)
+
+            # Select menu to select the roles
+            selectRole = Select(
+                placeholder="Seleccione su clase...",
+                options=[discord.SelectOption(label="CAP", description="Combat Air Patrol (CAP)", emoji=emojis["CAP"]),
+                        discord.SelectOption(label="TASMO", description="Maritime Strike (TASMO)", emoji=emojis["TASMO"]),
+                        discord.SelectOption(label="STRIKE", description="Ground Attack (STRIKE)", emoji=emojis["STRIKE"]),
+                        discord.SelectOption(label="CAS", description="Close Air Support (CAS)", emoji=emojis["CAS"]),
+                        discord.SelectOption(label="SEAD", description="Suppression of Enemy Air Defenses (SEAD)", emoji=emojis["SEAD"]),
+                        discord.SelectOption(label="RIO", description="Radar Intercept Officer (RIO)", emoji=emojis["RIO"]),
+                        discord.SelectOption(label="PILOT", description="Helicopter Pilot (PILOT)", emoji=emojis["PILOT"]),
+                        discord.SelectOption(label="CPG", description="Co-Pilot Gunner (CPG)", emoji=emojis["CPG"])],
+                custom_id="select_role"
+            )
+
+            # Select menu to select the aircraft
+            selectAircraft = Select(
+                placeholder=loc.get("SelectAircraft"),
+                options=[discord.SelectOption(label=loc.get("SelectRoleFirst"))],
+                custom_id="select_aircraft"
+            )
+
+            await interaction.response.send_message(loc.get("MissionCreated"), ephemeral=True, delete_after=10)
 
         # Exceptions
         except InvalidImageURLException as e:
