@@ -2,6 +2,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from config.db import Session
 from sqlalchemy.exc import OperationalError
 from services.translationsService import localization as loc
+from sqlalchemy import text
 
 class ScheduledTasks:
     def __init__(self):
@@ -11,7 +12,7 @@ class ScheduledTasks:
     def ping_database(self):
         try:
             db = Session()
-            db.execute("SELECT 1")
+            db.execute(text("SELECT 1"))
         except OperationalError as e:
             print(f"{loc.get("ErrorPingingDatabase")} {e}")
         finally:

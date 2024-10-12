@@ -4,9 +4,12 @@ from discord.ext import commands
 from services.translationsService import localization as loc
 from datetime import datetime
 
+class InvalidImageURLException(Exception):
+    pass
+
 async def setup(bot: commands.Bot):
     @bot.tree.command(name="create_mission", description=loc.get("DescCreateMissionCommand"))
-    async def createMission(interaction: discord.Interaction, title: str, description: str, embed_color: str, mission_date: str, datetime_start: str, datetime_end: str, images_descriptions: str = ""):
+    async def createMission(interaction: discord.Interaction, title: str, description: str, embed_color: str, datetime_start: str, datetime_end: str, images_descriptions: str = ""):
         # Message ID of the images embeds
         imagesEmbedsIDs = []
 
@@ -30,14 +33,11 @@ async def setup(bot: commands.Bot):
             if len(imagesDescriptionsList) > 1:
                 imageURLs = imagesDescriptionsList[::2]
                 descriptions = imagesDescriptionsList[1::2]
-                print(imageURLs)
-                print(descriptions)
 
-            if not await checkDates_Times(interaction, mission_date, datetime_start, datetime_end):
+            if not await checkDates_Times(interaction, datetime_start, datetime_end):
                 return
 
             # Convert the dates to timestamp
-            timestampDate = int(datetime.strptime(mission_date, "%Y-%m-%d").timestamp())
             timestampStart = int(datetime.strptime(datetime_start, "%Y-%m-%d %H:%M").timestamp())
             timestampEnd = int(datetime.strptime(datetime_end, "%Y-%m-%d %H:%M").timestamp())
 
@@ -52,7 +52,7 @@ async def setup(bot: commands.Bot):
             if len(imagesDescriptionsList) > 1:
                 for i, imageURL in enumerate(imageURLs):
                     if not imageURL.startswith("http") or not imageURL.startswith("https"):
-                        raise Exception(loc.get("InvalidImageURL"))
+                        raise InvalidImageURLException(loc.get("InvalidImageURL"))
 
                     imageEembed = discord.Embed(color = color)
                     imageEembed.set_image(url=imageURLs[i])
@@ -63,16 +63,30 @@ async def setup(bot: commands.Bot):
 
             # Create the mission embed
 
-            
+        # Exceptions
+        except InvalidImageURLException as e:
+            # Delete the images embeds if they were created and any error occurred
+            if len(imagesEmbedsIDs) > 0:
+                await deleteImagesEmbeds(interaction, imagesEmbedsIDs)
+                imageEembedsIDs = []
+
+            await interaction.response.send_message(f"{loc.get("InvalidImageURL")}", ephemeral=True, delete_after=20)
+            return
+
         except Exception as e:
             # Delete the images embeds if they were created and any error occurred
             if len(imagesEmbedsIDs) > 0:
-                for messageID in imagesEmbedsIDs:
-                    message = await interaction.channel.fetch_message(messageID)
-                    await message.delete
+                await deleteImagesEmbeds(interaction, imagesEmbedsIDs)
+                imageEembedsIDs = []
 
             await interaction.response.send_message(f"{loc.get("ErrorCreatingMission")} {e}", ephemeral=True, delete_after=20)
+            return
 
+async def deleteImagesEmbeds(interaction, imagesEmbedsIDs_):
+    for messageID in imagesEmbedsIDs_:
+        message = await interaction.channel.fetch_message(messageID)
+        await message.delete()
+        imagesEmbedsIDs_.remove(messageID)
 
 # Check if the user has the necessary role to create a mission, if the command was executed in the allowed server and if the number of images and descriptions is correct
 async def checkGuild_Role_Images(interaction, imagesDescriptionsList):
@@ -99,15 +113,10 @@ async def checkGuild_Role_Images(interaction, imagesDescriptionsList):
     return True
 
 # Check if the date and datetimes are correct
-async def checkDates_Times(interaction, mission_date, datetime_start, datetime_end):
+async def checkDates_Times(interaction, datetime_start, datetime_end):
     try:
-        missionDate = datetime.strptime(mission_date, "%Y-%m-%d")
         datetimeStart = datetime.strptime(datetime_start, "%Y-%m-%d %H:%M")
         datetimeEnd = datetime.strptime(datetime_end, "%Y-%m-%d %H:%M")
-        
-        if missionDate < datetime.now():
-            await interaction.response.send_message(loc.get("InvalidMissionDate"), ephemeral=True, delete_after=10)
-            return False
         
         if datetimeStart < datetime.now():
             await interaction.response.send_message(loc.get("InvalidMissionStartDate"), ephemeral=True, delete_after=10)

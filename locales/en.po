@@ -31,9 +31,6 @@ msgstr "The color is not valid."
 msgid "ErrorDateTime"
 msgstr "The date and time format is incorrect. \nPlease use the format 'yyyy-mm-dd hh:mm' or 'yyyy-mm-dd' for dates."
 
-msgid "InvalidMissionDate"
-msgstr "The mission date cannot be earlier than the current date."
-
 msgid "InvalidMissionStartDate"
 msgstr "The mission start date cannot be earlier than the current date."
 
